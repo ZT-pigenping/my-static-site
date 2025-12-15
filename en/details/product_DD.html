@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DD Motor - Product Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body.language-selector-page {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .language-selector {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .language-selector h1 {
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .language-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .language-btn {
+            padding: 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .language-btn.chinese {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+        }
+        
+        .language-btn.english {
+            background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+        }
+        
+        .language-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .language-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .language-btn span {
+            font-size: 1.5rem;
+        }
+        
+        .auto-detect {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 返回按钮 */
+        .back-button {
+            display: inline-block;
+            background: #4a90e2;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            transition: background 0.3s;
+        }
+        
+        .back-button:hover {
+            background: #3a7bc8;
+            text-decoration: none;
+        }
+        
+        /* 产品主体 */
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            .product-main {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+             .language-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .language-selector {
+                padding: 30px 20px;
+            }
+        }
+        
+        /* 产品图片 */
+        .product-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* 产品信息 */
+        .product-info h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .product-subtitle {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .product-price {
+            color: #e74c3c;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        /* 标签 */
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .tag {
+            background: #ecf0f1;
+            color: #34495e;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+        
+        /* 规格列表 */
+        .specs-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .specs-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* 行动按钮 */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #4a90e2;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #3a7bc8;
+            text-decoration: none;
+        }
+        
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #34495e;
+        }
+        
+        .btn-secondary:hover {
+            background: #bdc3c7;
+            text-decoration: none;
+        }
+        
+        .btn-pdf {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-pdf:hover {
+            background: #c0392b;
+            text-decoration: none;
+        }
+        
+        /* 相关产品 */
+        .related-products {
+            margin-top: 50px;
+        }
+        
+        .related-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .related-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .related-item:hover {
+            transform: translateY(-3px);
+            text-decoration: none;
+        }
+        
+        .related-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .related-item h4 {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+        }
+        
+        .related-item-price {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+             <!-- 语言切换导航 -->
+    <nav class="language-nav">
+        <div class="container">
+            <a href="../../zh/details/product_DD.html" class="lang-link">
+                <span class="flag"><img src="../../shared/products/webp/cn.webp"></span><small> 中文</small>
+            </a>
+            <a href="../../en/details/product_DD.html" class="lang-link active">
+                <span class="flag"><img src="../../shared/products/webp/us.webp"></span><small> English</small>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="../index.html" class="back-button">← Return to product list</a>
+        
+        <!-- 产品主体 -->
+        <div class="product-main">
+            <!-- 产品图片 -->
+            <div>
+                <img src="../../shared/products/DD/DD.jpg" alt="DD马达" class="product-image" id="mainImage">
+            </div>
+            
+            <!-- 产品信息 -->
+            <div class="product-info">
+                <h1 id="productTitle">DD motor</h1>
+                 <p class="product-subtitle" id="productSubtitle">Shanghai Zhengtang Machinery Equipment Co., Ltd.: 18817676480</p>
+                <p class="product-subtitle" id="productSubtitle">Email: bambooPi@163.com</p>
+                <div class="product-tags">
+                    <span class="tag">High precision</span>
+                    <span class="tag">High rigidity</span>
+                    <span class="tag">High torque</span>
+                    <span class="tag">Long service life</span>
+                </div>
+                
+                <div class="product-price" id="productPrice">¥ 899</div>
+                
+                <!-- 产品描述 -->
+                <div class="description">
+                    <p>(1) Reduced gap error (2) High positioning accuracy (3) High rigidity and compact structure</p>
+                    <p>DD stands for Direct Driver, which is a type of motor widely used in industrial machinery such as semiconductor manufacturing equipment and electronic manufacturing equipment (3C industry). It is also beginning to be applied in the photovoltaic industry.</p>
+                </div>
+                
+                <!-- 简要规格 -->
+                <ul class="specs-list" id="specsList">
+                    <li><strong>Direct driver installation method:</strong>Reduce gap error</li>
+                    <li><strong>Configure a high-resolution encoder:</strong>High positioning accuracy</li>
+                    <li><strong>The combined mechanical structure of the DD motors will be more compact:</strong>High rigidity, compact structure</li>
+                    <li><strong>run:</strong>Smooth and low noise</li>
+                </ul>
+                
+                <!-- 行动按钮 -->
+                <div class="action-buttons">
+                    <a href="https://detail.tmall.com/item.htm?id=670531823503&spm=a21dvs.23580594.0.0.47b32c1bKAYOWM" class="btn btn-primary">Buy it now</a>
+                    <h3  class="btn btn-pdf">Customer service hotline: 18817676480
+                    </h3>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 相关产品 -->
+        <div class="related-products">
+            <h2 class="related-title">Related product recommendations</h2>
+            <div class="related-grid" id="relatedGrid">
+                <!-- 相关产品将通过JavaScript生成 -->
+            </div>
+        </div>
+        
+         <!-- 页脚 -->
+        <div class="footer">
+            <p>© 2025 Product Showcase Website</p>
+            <p>Customer service hotline: 18817676480 | Service hours: 9:00-18:00</p>
+        </div>
+    </div>
+
+    <script>
+        // 相关产品数据
+        const relatedProducts = [
+            {
+                id: 2,
+                title: "worm gear rotary platform",
+                price: "¥ 722-¥ 8600",
+                image: "../../shared/products/300_400_ITRA旋转台-fotor-2025121114110.jpg",
+                url:"../details/product_ITRA.html"
+            },
+            {
+                id: 3,
+                    title: "Hybo Gear Rotary Platform",
+                    price: "¥ 945-¥ 6650",
+                    image: "../../shared/products/300_400_海波齿旋转平台-fotor-20251206101730.jpg",
+                    url:"../details/product_ITX.html"
+            },
+            {
+                id: 4,
+                title: "Hollow Rotary Platform",
+                price: "¥ 400-¥ 15000",
+                image: "../../shared/products/RS/300_400_RS旋转平台带感应开关-fotor-20251206.jpg",
+                url:"../details/product_RS.html" 
+            },
+        ];
+        
+        // 页面加载完成后生成相关产品
+        document.addEventListener('DOMContentLoaded', function() {
+            const relatedGrid = document.getElementById('relatedGrid');
+            
+            relatedProducts.forEach(product => {
+                const item = document.createElement('a');
+                item.href = product.url;
+                item.className = 'related-item';
+                item.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" loading="lazy">
+                    <h4>${product.title}</h4>
+                    <div class="related-item-price">${product.price}</div>
+                `;
+                relatedGrid.appendChild(item);
+            });
+            
+            // 更新页面标题
+            const productTitle = document.getElementById('productTitle').textContent;
+            document.title = `${productTitle} - 产品详情`;
+            
+            console.log('页面加载完成，相关产品已生成');
+        });
+    </script>
+</body>
+</html>

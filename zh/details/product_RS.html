@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS中空旋转平台 - 详情介绍</title>
+    <meta name="description" content="配备交叉滚子轴承，可提供高定位精度，出色的跳动特性和4,000 N 的最大轴向力。">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body.language-selector-page {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+         .language-selector {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .language-selector h1 {
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .language-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .language-btn {
+            padding: 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .language-btn.chinese {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+        }
+        
+        .language-btn.english {
+            background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+        }
+        
+        .language-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .language-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .language-btn span {
+            font-size: 1.5rem;
+        }
+        
+        .auto-detect {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+         @media (max-width: 600px) {
+            .language-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .language-selector {
+                padding: 30px 20px;
+            }
+        }
+        /* 返回导航 */
+        .back-nav {
+            margin-bottom: 30px;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+        }
+        
+        .back-button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* 产品头部 */
+        .product-header {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .product-title {
+            color: #1e293b;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .product-subtitle {
+            color: #64748b;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+        
+        .product-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .tag.hot {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .price-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .current-price {
+            color: #dc2626;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .original-price {
+            color: #94a3b8;
+            font-size: 1.5rem;
+            text-decoration: line-through;
+        }
+        
+        .discount {
+            background: #dc2626;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* 主要内容区 */
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 1024px) {
+            .product-main {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 图片展示区 */
+        .image-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .main-image-container {
+            width: 100%;
+            height: 450px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .main-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .thumbnail-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .thumbnail {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .thumbnail:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .thumbnail.active {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* 信息展示区 */
+        .info-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .section-title {
+            color: #1e293b;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3b82f6;
+            font-weight: 600;
+        }
+        
+        /* 规格参数表格 */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .specs-table tr {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .specs-table tr:last-child {
+            border-bottom: none;
+        }
+        
+        .specs-table td {
+            padding: 16px 0;
+        }
+        
+        .spec-label {
+            color: #64748b;
+            font-weight: 500;
+            width: 40%;
+            vertical-align: top;
+        }
+        
+        .spec-value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        
+        /* 特性列表 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            background: #f1f5f9;
+        }
+        
+        .feature-icon {
+            color: #3b82f6;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        /* 详细描述 */
+        .description-content {
+            margin: 20px 0;
+        }
+        
+        .description-content p {
+            margin-bottom: 15px;
+            color: #475569;
+            line-height: 1.8;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .highlight h4 {
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* 包装清单 */
+        .package-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .package-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .package-list li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        
+        /* 行动按钮 */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #3b82f6;
+            border: 2px solid #3b82f6;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f9ff;
+            transform: translateY(-3px);
+        }
+        
+        .btn-pdf {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .btn-pdf:hover {
+            background: #dc2626;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+        
+        /* 技术参数区 */
+        .tech-specs {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .specs-category {
+            margin-bottom: 30px;
+        }
+        
+        .specs-category h4 {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 4px solid #94a3b8;
+        }
+        
+        /* 相关配件 */
+        .accessories {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .accessory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .accessory-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .accessory-item:hover {
+            background: #f1f5f9;
+            transform: translateY(-5px);
+        }
+        
+        .accessory-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #1e293b;
+        }
+        
+        .accessory-price {
+            color: #dc2626;
+            font-weight: 600;
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 50px;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .product-header {
+                padding: 25px;
+            }
+            
+            .product-title {
+                font-size: 2rem;
+            }
+            
+            .main-image-container {
+                height: 350px;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+     <!-- 语言切换导航 -->
+    <nav class="language-nav">
+        <div class="container">
+            <a href="../details/product_RS.html" class="lang-link">
+                <span class="flag"><img src="../../shared/products/webp/cn.webp"></span><small> 中文</small>
+            </a>
+            <a href="../../en/details/product_RS.html" class="lang-link active">
+                <span class="flag"><img src="../../shared/products/webp/us.webp"></span><small> English</small>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- 返回导航 -->
+        <nav class="back-nav">
+            <a href="../index.html" class="back-button">
+                ← 返回产品列表
+            </a>
+        </nav>
+
+        <!-- 产品头部信息 -->
+        <header class="product-header">
+            <h1 class="product-title">RS中空旋转平台</h1>
+            <p class="product-subtitle">上海正堂机械设备有限公司：18817676480
+            </p>
+            
+            <div class="product-tags">
+                <span class="tag hot">热销爆款，有量优惠</span>
+                <span class="tag">交叉滚子轴承</span>
+                <span class="tag">高定位精度</span>
+                <span class="tag">任意安装</span>
+                <span class="tag">使用寿命长</span>
+            </div>
+            
+            <div class="price-section">
+                <span class="current-price">¥ 400</span>
+                <span class="original-price">¥ 700</span>
+                <span class="discount">立减300元</span>
+            </div>
+        </header>
+
+        <!-- 主要内容区：图片 + 信息 -->
+        <main class="product-main">
+            <!-- 左侧：图片展示区 -->
+            <section class="image-section">
+                <div class="main-image-container">
+                    <img src="../../shared/products/工厂品类图.jpg" alt="工厂品类图" class="main-image" id="mainImage">
+                </div>
+                
+                <div class="thumbnail-grid">
+                    <img src="../../shared/products/RS/300_400_RS旋转平台带感应开关-fotor-20251206.jpg" alt="RS中空旋转平台" class="thumbnail active" onclick="changeMainImage(this.src)">
+                    <img src="../../shared/products/RS/RS60-5-100W.png" alt="RS60-5-100W" class="thumbnail" onclick="changeMainImage(this.src)">
+                    <img src="../../shared/products/RS/RS85-10-400W.png" alt="RS85-10-400W" class="thumbnail" onclick="changeMainImage(this.src)">
+                    <img src="../../shared/products/RS/RS130-10-400W.png" alt="RS130-10-400W" class="thumbnail" onclick="changeMainImage(this.src)">
+                    <img src="../../shared/products/RS/RS200-10-750W.png" alt="RS200-10-750W" class="thumbnail" onclick="changeMainImage(this.src)">
+                    <img src="../../shared/products/RS/RS280-10-fotor-20251208115158.jpg" alt="RS280-10" class="thumbnail" onclick="changeMainImage(this.src)">
+                    <img src="../../shared/products/RS/RS450-10-fotor-2025121115728.jpg" alt="RS450-10" class="thumbnail" onclick="changeMainImage(this.src)">
+                    <img src="../../shared/products/RS/转台_RS性能参数.jpg" alt="工厂品类图" class="thumbnail" onclick="changeMainImage(this.src)">
+                </div>
+                <table>
+                    <tr>
+                        <td class="spec-label"></td>
+                        <td class="spec-value"></td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label"></td>
+                        <td class="spec-value"></td>
+                    </tr>
+                </table>
+                <!-- 行动按钮 -->
+                <div class="action-buttons">
+                    <a href="../../shared/documents/intodrive_RS.pdf" class="btn btn-pdf" target="_blank">
+                        下载详细规格书 (PDF)
+                    </a>
+                    <a href="../../shared/documents/RS.rar" class="btn btn-pdf" target="_blank">
+                        下载详细规格书 (STEP)
+                    </a>
+                </div>
+            </section>
+
+            <!-- 右侧：基本信息区 -->
+            <section class="info-section">
+                <h2 class="section-title">产品概览-有量可以优惠</h2>
+                <!-- 规格参数 -->
+                <table class="specs-table">
+                    <tr>
+                        <td class="spec-label">RS60型号一</td>
+                        <td class="spec-value">RS60-5-42步进/100W伺服：400元</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">RS60型号二</td>
+                        <td class="spec-value">RS60-10-42步进/100W伺服：400元</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">RS85型号一</td>
+                        <td class="spec-value">RS85-5-57步进/400W伺服：780元</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">RS85型号二</td>
+                        <td class="spec-value">RS85-10-57步进/400W伺服：780元</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">RS85型号三</td>
+                        <td class="spec-value">RS85-15-42步进/100W伺服：780元</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">RS130型号一</td>
+                        <td class="spec-value">RS130-10-57步进/400W伺服：1000元</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">RS130型号二</td>
+                        <td class="spec-value">RS130-18-57步进/400W伺服：1000元</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">RS200型号一</td>
+                        <td class="spec-value">RS200-10-86步进/750W伺服：1800元</td>
+                    </tr>
+                         <tr>
+                        <td class="spec-label">RS200型号二</td>
+                        <td class="spec-value">RS200-18-86步进/750W伺服：1800元</td>
+                    </tr>
+                         <tr>
+                        <td class="spec-label">RS280型号一</td>
+                        <td class="spec-value">RS280-10-22/24-110-145：4000元</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">RS450型号二</td>
+                        <td class="spec-value">RS450-10-35-114.3-200：14000元</td>
+                    </tr>
+                </table>
+                
+
+                <!-- 行动按钮 -->
+                <div class="action-buttons">
+                    <a href="https://detail.tmall.com/item.htm?id=653911869642" class="btn btn-primary" target="_blank">
+                        立即购买
+                    </a>
+                    <a href="" class="btn btn-secondary">
+                        咨询客服:18817676480
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- 详细描述 -->
+        <section class="info-section">
+            <h2 class="section-title">产品详细介绍</h2>
+            <div class="description-content">
+                <p>中空旋转平台集传动效率、高精度、高刚性、高性价比于一身，综合了伺服马达，凸轮分割器、DD直驱电机的优势。使用高精度斜齿轮结构和交叉轴承，提高了扭矩和刚性及径向力的大负荷，搭配伺服或步进可做任意角度分割及精准定位，既满足分割器无法实现的位数控制，定位精度又能媲美直驱马达，短时间内实现惯性负载的定位。</p>
+                
+                <div class="highlight">
+                    <h4>🎯 核心技术亮点</h4>
+                    <p>背隙30弧秒·  大口径中空输出平台 · 高强度 · 能缩短设备起动时间的一体型构造 · 可根据空间选择马达方向 · 可选择安装方向.</p>
+                </div>
+                
+                <p>RS系列(85、130、230、280，450)使用”交叉滚柱轴承”使旋转平台旋转平稳、定位精准，拥有较大的刚性、轴向及径向负荷力</p>
+            </div>
+        </section>
+
+        <!--  RS中空旋转平台 -->
+        <section class="info-section">
+            <h2 class="section-title">RS中空旋转平台-有量可优惠</h2>
+            <ul class="package-list">
+                <li>配备交叉滚子轴承，可提供高定位精度</li>
+                <li>出色的跳动特性和4,000 N 的最大轴向力</li>
+                <li>大口径中空输出平台</li>
+                <li>高强度 · 定位精度</li>
+                <li>可选择安装方向</li>
+                <li>提供流暢、準確、快速的定位和分度</li>
+                <li>RS系列(85、130、230、280、450)</li>
+            </ul>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>© 2025 产品展示网站. 所有产品图片和规格仅供参考，实际产品可能有所差异。</p>
+            <p>客服热线：18817676480 | 服务时间：8:00-18:00</p>
+        </footer>
+    </div>
+
+    <!-- 简单的图片切换脚本 -->
+    <script>
+        function changeMainImage(src) {
+            // 更新主图
+            document.getElementById('mainImage').src = src;
+            
+            // 更新缩略图激活状态
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => {
+                thumb.classList.remove('active');
+                if (thumb.src === src) {
+                    thumb.classList.add('active');
+                }
+            });
+        }
+        
+        // 点击缩略图切换
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                changeMainImage(this.src);
+            });
+        });
+    </script>
+</body>
+</html>

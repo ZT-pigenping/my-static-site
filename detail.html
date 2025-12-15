@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{产品名称} - 详情介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 返回按钮 */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background: #2980b9;
+            transform: translateX(-5px);
+        }
+        
+        /* 产品详情主体 */
+        .product-detail {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .product-header {
+            padding: 40px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .product-title {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .product-subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .product-price {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .product-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .product-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .product-images {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .thumbnail:hover {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .info-section h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .spec-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .spec-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .spec-value {
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        
+        .features-list {
+            list-style: none;
+        }
+        
+        .features-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: #2ecc71;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #34495e;
+        }
+        
+        .btn-secondary:hover {
+            background: #bdc3c7;
+        }
+        
+        .btn-pdf {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-pdf:hover {
+            background: #c0392b;
+        }
+        
+        /* 相关产品 */
+        .related-products {
+            margin-top: 50px;
+        }
+        
+        .related-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .related-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .related-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .related-item-info {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="../index.html" class="back-button">
+            ← 返回产品画廊
+        </a>
+        
+        <!-- 产品详情 -->
+        <div class="product-detail">
+            <div class="product-header">
+                <h1 class="product-title" id="productTitle">产品名称</h1>
+                <p class="product-subtitle" id="productSubtitle">产品副标题或简短描述</p>
+                <div class="product-price" id="productPrice">¥ 0</div>
+            </div>
+            
+            <div class="product-content">
+                <!-- 左侧：产品图片 -->
+                <div class="product-images">
+                    <img src="" alt="产品主图" class="main-image" id="mainImage">
+                    <div class="thumbnail-grid" id="thumbnailGrid">
+                        <!-- 缩略图将通过JS动态添加 -->
+                    </div>
+                </div>
+                
+                <!-- 右侧：产品信息 -->
+                <div class="product-info">
+                    <!-- 产品描述 -->
+                    <div class="info-section">
+                        <h3>产品描述</h3>
+                        <p id="productDescription">这里将显示详细的产品描述信息。</p>
+                    </div>
+                    
+                    <!-- 规格参数 -->
+                    <div class="info-section">
+                        <h3>规格参数</h3>
+                        <div class="specs-grid" id="specsGrid">
+                            <!-- 规格参数将通过JS动态添加 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 主要特性 -->
+                    <div class="info-section">
+                        <h3>主要特性</h3>
+                        <ul class="features-list" id="featuresList">
+                            <!-- 特性列表将通过JS动态添加 -->
+                        </ul>
+                    </div>
+                    
+                    <!-- 行动按钮 -->
+                    <div class="action-buttons">
+                        <a href="#" class="btn btn-primary" id="buyButton">立即购买</a>
+                        <a href="#" class="btn btn-secondary" id="contactButton">咨询客服</a>
+                        <a href="../documents/product-catalog.pdf" class="btn btn-pdf" target="_blank" id="pdfButton">查看产品手册 (PDF)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 相关产品 -->
+        <div class="related-products">
+            <h2 class="related-title">相关产品推荐</h2>
+            <div class="related-grid" id="relatedGrid">
+                <!-- 相关产品将通过JS动态添加 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 产品数据（在实际使用中，可以从数据库或JSON文件加载）
+        const productData = {
+            id: 1,
+            title: "高保真无线耳机",
+            subtitle: "专业级音质体验",
+            price: "¥ 899",
+            mainImage: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+            description: "这款高保真无线耳机采用最新蓝牙5.2技术，提供稳定快速的连接体验。配备40mm驱动单元，带来卓越的音质表现。主动降噪功能有效消除环境噪音，让您沉浸在纯净的音乐世界中。40小时超长续航，满足全天候使用需求。人体工学设计，佩戴舒适稳固，适合长时间使用。",
+            images: [
+                "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1484704849700-f032a568e944?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                "https://images.unsplash.com/photo-1590658165737-15a047b8b5e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            ],
+            specs: [
+                { label: "型号", value: "WH-1000XM4" },
+                { label: "蓝牙版本", value: "5.2" },
+                { label: "续航时间", value: "40小时" },
+                { label: "充电时间", value: "3小时" },
+                { label: "驱动单元", value: "40mm" },
+                { label: "频率响应", value: "4Hz-40kHz" },
+                { label: "降噪类型", value: "主动降噪" },
+                { label: "重量", value: "254g" }
+            ],
+            features: [
+                "蓝牙5.2技术，连接稳定快速",
+                "主动降噪功能，消除环境噪音",
+                "40小时超长续航，支持快充",
+                "人体工学设计，佩戴舒适",
+                "支持语音助手（Siri/Google Assistant）",
+                "多点连接，同时连接两台设备",
+                "高品质麦克风，通话清晰",
+                "触控操作，便捷控制"
+            ],
+            category: "electronics",
+            pdfUrl: "../documents/headphone-spec.pdf",
+            relatedProducts: [
+                {
+                    id: 2,
+                    title: "智能运动手表",
+                    price: "¥ 1299",
+                    image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    url: "details/product2.html"
+                },
+                {
+                    id: 3,
+                    title: "无线蓝牙音箱",
+                    price: "¥ 699",
+                    image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    url: "details/product3.html"
+                }
+            ]
+        };
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 从URL获取产品ID（示例：product1.html?id=1）
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 1;
+            
+            // 在实际项目中，这里应该根据productId从服务器获取数据
+            // 这里我们使用示例数据
+            loadProductData(productData);
+        });
+
+        function loadProductData(data) {
+            // 更新页面标题
+            document.title = `${data.title} - 详情介绍`;
+            
+            // 更新产品基本信息
+            document.getElementById('productTitle').textContent = data.title;
+            document.getElementById('productSubtitle').textContent = data.subtitle;
+            document.getElementById('productPrice').textContent = data.price;
+            document.getElementById('productDescription').textContent = data.description;
+            
+            // 更新主图
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = data.mainImage;
+            mainImage.alt = data.title;
+            
+            // 生成缩略图
+            const thumbnailGrid = document.getElementById('thumbnailGrid');
+            thumbnailGrid.innerHTML = '';
+            data.images.forEach((imageUrl, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = imageUrl;
+                thumbnail.alt = `${data.title} - 图${index + 1}`;
+                thumbnail.className = 'thumbnail';
+                thumbnail.addEventListener('click', () => {
+                    mainImage.src = imageUrl;
+                });
+                thumbnailGrid.appendChild(thumbnail);
+            });
+            
+            // 生成规格参数
+            const specsGrid = document.getElementById('specsGrid');
+            specsGrid.innerHTML = '';
+            data.specs.forEach(spec => {
+                const specItem = document.createElement('div');
+                specItem.className = 'spec-item';
+                specItem.innerHTML = `
+                    <div class="spec-label">${spec.label}</div>
+                    <div class="spec-value">${spec.value}</div>
+                `;
+                specsGrid.appendChild(specItem);
+            });
+            
+            // 生成特性列表
+            const featuresList = document.getElementById('featuresList');
+            featuresList.innerHTML = '';
+            data.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+            
+            // 更新按钮链接
+            document.getElementById('buyButton').href = `buy.html?id=${data.id}`;
+            document.getElementById('contactButton').href = `contact.html?product=${encodeURIComponent(data.title)}`;
+            document.getElementById('pdfButton').href = data.pdfUrl;
+            
+            // 生成相关产品
+            const relatedGrid = document.getElementById('relatedGrid');
+            relatedGrid.innerHTML = '';
+            data.relatedProducts.forEach(product => {
+                const relatedItem = document.createElement('a');
+                relatedItem.href = product.url;
+                relatedItem.className = 'related-item';
+                relatedItem.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
+                    <div class="related-item-info">
+                        <h4>${product.title}</h4>
+                        <div style="color: #e74c3c; font-weight: bold; margin-top: 5px;">${product.price}</div>
+                    </div>
+                `;
+                relatedGrid.appendChild(relatedItem);
+            });
+        }
+    </script>
+</body>
+</html>

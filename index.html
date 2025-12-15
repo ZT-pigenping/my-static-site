@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品展示画廊 - 点击查看详情</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body.language-selector-page {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+        }
+         .language-selector {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .language-selector h1 {
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .language-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .language-btn {
+            padding: 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .language-btn.chinese {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+        }
+        
+        .language-btn.english {
+            background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+        }
+        
+        .language-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .language-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .language-btn span {
+            font-size: 1.5rem;
+        }
+        
+        .auto-detect {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .language-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .language-selector {
+                padding: 30px 20px;
+            }
+        }
+
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            background: #fff;
+            border: 2px solid #3498db;
+            color: #3498db;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .filter-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            position: relative; /* 添加相对定位 */
+        }
+        
+        .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            opacity: 1;
+            transform: scale(1);
+            position: relative; /* 修改这里：移除 absolute */
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        /* 修改隐藏状态的样式 */
+        .gallery-item.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            /* 移除 position: absolute; */
+            /* 移除 pointer-events: none; */
+            /* 添加 display: none 来解决重叠问题 */
+            display: none; /* 关键修改：完全隐藏元素 */
+        }        
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .item-info {
+            padding: 20px;
+        }
+        
+        .item-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            color: #2c3e50;
+        }
+        
+        .item-description {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .item-category {
+            display: inline-block;
+            background: #ecf0f1;
+            color: #34495e;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .item-price {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.1rem;
+        }
+        
+        .view-details {
+            display: inline-block;
+            margin-top: 15px;
+            color: #3498db;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .gallery-item.filtered-out {
+            display: none !important;
+        }
+        
+        .gallery-item:hover .view-details {
+            color: #2980b9;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* 加载动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gallery-item {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-selector-page">
+        <h1>🌐 选择语言 / Select Language</h1>
+        
+        <div class="language-options">
+            <a href="zh/index.html" class="language-btn chinese">
+                <i>🇨🇳</i>
+                <span>中文</span>
+                <small>Chinese</small>
+            </a>
+            
+            <a href="en/index.html" class="language-btn english">
+                <i>🇺🇸</i>
+                <span>English</span>
+                <small>英文</small>
+            </a>
+        </div>
+        
+        <div class="auto-detect">
+            <p>您正在访问: <span id="user-location">检测中...</span></p>
+            <p>默认语言: <span id="recommended-lang">中文</span></p>
+        </div>
+        
+    </div>
+    <div class="gallery-container">
+        <div class="header">
+            <h1>上海正堂机械设备有限公司</h1>
+            <p>如需咨询：陈经理18817676480</p>
+            <p>邮箱：bambooPi@163.com</p>
+        </div>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn " data-filter="all">全部产品</button>
+            <button class="filter-btn active" data-filter="rotating_platform">旋转平台</button>
+            <button class="filter-btn" data-filter="Planetary_Reducer">行星减速机</button>
+            <button class="filter-btn" data-filter="redirector">换向器</button>
+            <button class="filter-btn" data-filter="DD_motor">DD马达</button>
+        </div>
+        
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- 产品1 - 中空旋转平台 -->
+            <a href="en/details/product_RS.html" class="gallery-item" data-category="rotating_platform">
+                <div class="image-container">
+                    <img src="../shared/products/300_400_RS旋转平台带感应开关-fotor-20251206.jpg" alt="中空旋转平台">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">中空旋转平台</div>
+                    <div class="item-description">采用中空结构方便安装，高精度，交叉滚子轴承</div>
+                    <div class="item-price">¥ 400</div>
+                    <div class="item-category">旋转平台</div>
+                    <div class="view-details">查看产品详情 →</div>
+                </div>
+            </a>
+            
+            <!-- 产品2 - 蜗轮蜗杆旋转平台 -->
+            <a href="details/product_ITRA.html" class="gallery-item" data-category="rotating_platform">
+                <div class="image-container">
+                    <img src="shared/products/300_400_ITRA旋转台-fotor-2025121114110.jpg" alt="蜗轮蜗杆旋转平台">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">蜗轮蜗杆旋转平台</div>
+                    <div class="item-description">360度连续旋转角度调节，有自锁功能，精度高</div>
+                    <div class="item-price">¥ 722</div>
+                    <div class="item-category">旋转平台</div>
+                    <div class="view-details">查看产品详情 →</div>
+                </div>
+            </a>
+            
+            <!-- 产品3 - 海波齿旋转平台 -->
+            <a href="details/product_ITX.html" class="gallery-item" data-category="rotating_platform">
+                <div class="image-container">
+                    <img src="shared/products/300_400_海波齿旋转平台-fotor-20251206101730.jpg" alt="海波齿旋转平台">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">海波齿旋转平台</div>
+                    <div class="item-description">高转矩，高精度，低磨耗，高传动效率</div>
+                    <div class="item-price">¥ 945</div>
+                    <div class="item-category">旋转平台</div>
+                    <div class="view-details">查看产品详情 →</div>
+                </div>
+            </a>
+            
+            <!-- 产品4 - 直齿行星减速机 -->
+            <a href="details/product_PF_PL.html" class="gallery-item" data-category="Planetary_Reducer">
+                <div class="image-container">
+                    <img src="shared/products/300_400_PF120_PL120行星减速机-fotor-20251211141343.jpg" alt="直齿行星减速机">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">直齿行星减速机PF120/PL115</div>
+                    <div class="item-description">性价比高，轻巧，安装方便齿轮淬火硬度达62度</div>
+                    <div class="item-price">¥ 600</div>
+                    <div class="item-category">行星减速机</div>
+                    <div class="view-details">查看产品详情 →</div>
+                </div>
+            </a>
+               <!-- 产品5 -  斜齿行星减速机 -->
+            <a href="details/product_AB.html" class="gallery-item" data-category="Planetary_Reducer">
+                <div class="image-container">
+                    <img src="shared/products/300-400-fotor-20251206102543.jpg" alt="现代简约沙发">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">斜齿行星减速机AB</div>
+                    <div class="item-description">高效能、精准可靠、寿命长，高扭矩，噪音极低</div>
+                    <div class="item-price">¥ 500</div>
+                    <div class="item-category">行星减速机</div>
+                    <div class="view-details">查看产品详情 →</div>
+                </div>
+            </a>
+            <!-- 产品6 - PW换向器 -->
+            <a href="details/product_PW.html" class="gallery-item" data-category="redirector">
+                <div class="image-container">
+                    <img src="shared/products/300_400_PW换向器.jpg" alt="山地自行车">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">PW换向器</div>
+                    <div class="item-description">高耐磨，双支撑，长寿命，高精度</div>
+                    <div class="item-price">¥ 900</div>
+                    <div class="item-category">换向器</div>
+                    <div class="view-details">查看产品详情 →</div>
+                </div>
+            </a>
+            
+            <!-- 产品7 - WR转向器 -->
+            <a href="details/product_WRS.html" class="gallery-item" data-category="redirector">
+                <div class="image-container">
+                    <img src="shared/products/300-400%E2%80%94WR%E8%BD%AC%E5%90%91%E5%99%A8-fotor-2025120610222.jpg" alt="WR换向器">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">WR换向器</div>
+                    <div class="item-description">高精度，可配伺服步进，轴输出，孔输出</div>
+                    <div class="item-price">¥ 450</div>
+                    <div class="item-category">换向器</div>
+                    <div class="view-details">查看产品详情 →</div>
+                </div>
+            </a>            
+            <!-- 产品8 - DD马达 -->
+            <a href="details/product_DD.html" class="gallery-item" data-category="DD_motor">
+                <div class="image-container">
+                    <img src="shared/products/300-400-DD%E9%A9%AC%E8%BE%BE-fotor-20251206102732.jpg" alt="DD马达">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">DD马达</div>
+                    <div class="item-description">高精度，高转速，总线型，脉冲型</div>
+                    <div class="item-price">¥ 6899</div>
+                    <div class="item-category">DD马达</div>
+                    <div class="view-details">查看产品详情 →</div>
+                </div>
+            </a>
+           
+        </div>
+    </div>
+</body>
+  <script>
+    // 自动检测用户语言
+    const userLang = navigator.language || navigator.userLanguage;
+    const userLocation = document.getElementById('user-location');
+    const recommendedLang = document.getElementById('recommended-lang');
+    // 更新位置信息
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            userLocation.textContent = `${data.country_name} (${data.country_code})`;
+                
+            // 根据国家推荐语言
+            if (['CN', 'TW', 'HK', 'MO', 'SG'].includes(data.country_code)) {
+                    recommendedLang.textContent = '中文';
+                } else {
+                    recommendedLang.textContent = 'English';
+                }
+            })
+            .catch(() => {
+                userLocation.textContent = '未知地区';
+            });
+        
+        // 如果用户有语言偏好设置，3秒后自动跳转
+        setTimeout(() => {
+            const preferredLang = localStorage.getItem('preferred-language');
+            if (preferredLang === 'zh') {
+                window.location.href = 'zh/index.html';
+            } else if (preferredLang === 'en') {
+                window.location.href = 'en/index.html';
+            }
+        }, 3000);
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // 使用 const - DOM元素集合引用不会改变
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    // 筛选产品函数
+    function filterProducts(filterValue) {
+        console.log(`筛选条件: ${filterValue}`);
+        
+        // 方法1：先隐藏所有，再显示符合条件的（最可靠）
+        // 第一步：将所有产品标记为隐藏
+        galleryItems.forEach(item => {
+            item.classList.add('filtered-out');
+        });
+        
+        // 第二步：显示符合条件的
+        galleryItems.forEach(item => {
+            const category = item.getAttribute('data-category');
+            
+            // 判断是否应该显示
+             if (filterValue === 'all' || category === filterValue) {
+                item.classList.remove('filtered-out');
+            }
+        });
+        
+        filterButtons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-filter') === filterValue) {
+                btn.classList.add('active');
+            }
+        });
+    }
+    
+    // 为每个筛选按钮添加点击事件
+        // 为按钮添加点击事件
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filterValue = this.getAttribute('data-filter');
+            filterProducts(filterValue);
+            
+            // 保存用户选择（可选）
+            localStorage.setItem('preferred-category', filterValue);
+        });
+    });
+    
+    // 修改：初始显示电子产品而不是全部产品
+    const defaultCategory = 'rotating_platform'; // 设置默认分类
+    filterProducts(defaultCategory);
+    
+   
+   
+});
+    </script>
+</body>
+</html>
