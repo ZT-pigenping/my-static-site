@@ -179,7 +179,80 @@
         .gallery-item:hover .view-details {
             color: #2980b9;
         }
-        
+                .beian-footer {
+             background: #f8f9fa;
+            color: #666;
+            padding: 20px 0;
+            border-top: 1px solid #e9ecef;
+            font-size: 0.85rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .beian-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .beian-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .beian-link {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        .beian-link:hover {
+            color: #4a90e2;
+            text-decoration: underline;
+        }
+
+        .beian-icon {
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+
+        .beian-number {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            margin: 0 5px;
+        }
+
+        .beian-copyright {
+            text-align: center;
+            margin-top: 10px;
+            width: 100%;
+            color: #888;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .beian-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .beian-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
         /* 响应式设计 */
         @media (max-width: 768px) {
             .gallery-grid {
@@ -477,5 +550,39 @@
     console.log('提示: 在控制台运行 testAllCategories() 测试所有分类');
 });
     </script>
+<footer class="beian-footer">
+    <div class="beian-content">
+        <!-- 备案号链接 -->
+        <div class="beian-links">
+            <!-- 工信部备案（网站备案） -->
+            <a href="https://beian.miit.gov.cn/" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="beian-link">
+                <span class="beian-icon">📄</span>
+                沪ICP备2025156105号-1
+            </a>
+                
+            <!-- 联系方式 -->
+            <a href="mailto:bambooPI@163.com" class="beian-link">
+                <span class="beian-icon">📧</span>
+                联系我们
+            </a>
+            
+        </div>
+        
+        <!-- 版权信息 -->
+        <div class="beian-copyright">
+            <p>
+                © 2025 上海正堂机械设备有限公司  版权所有 
+                | 本网站所有产品图片和规格仅供参考，实际产品可能有所差异
+                | 客服热线：18817676480
+            </p>
+            <p style="font-size: 0.8rem; margin-top: 5px; color: #999;">
+                推荐使用 Chrome、Edge、Safari 等现代浏览器访问本站
+            </p>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
